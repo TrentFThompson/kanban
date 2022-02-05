@@ -1,0 +1,5 @@
+Error handling for network requests
+
+Make a generic api class for the api folder
+
+need frontend and backend validation
