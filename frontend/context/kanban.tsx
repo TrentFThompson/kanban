@@ -1,9 +1,16 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useState, ReactNode } from "react";
+import { NextComponentType } from "next";
 
 import StatusAPI from "../api/status";
 import TaskAPI from "../api/tasks";
 import { Status, Task } from "../interfaces/entities";
 import ContextArrayManager from "./context-manager";
+
+interface Props {
+    tasks: Task[];
+    statuses: Status[];
+    children: ReactNode;
+}
 
 export const KanbanContext = createContext<{
     statuses: Status[];
@@ -19,7 +26,7 @@ export function useKanban() {
     return useContext(KanbanContext);
 }
 
-export function KanbanProvider(props: any) {
+export function KanbanProvider(props: Props) {
     const [tasks, setTasks] = useState(props.tasks);
     const [statuses, setStatuses] = useState(props.statuses);
     const TaskManager = new ContextArrayManager<Task>({

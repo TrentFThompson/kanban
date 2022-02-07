@@ -1,4 +1,4 @@
-import type { NextPage } from "next";
+import type { GetServerSidePropsContext, NextPage } from "next";
 
 // Custom imports
 import StatusAPI from "../api/status";
@@ -13,20 +13,27 @@ interface Props {
     tasks: Task[];
 }
 
-const Home: NextPage<Props> = (props: Props) => {
+export default function IndexPage(props: Props) {
     return (
         <KanbanProvider tasks={props.tasks} statuses={props.statuses}>
             <Kanban />
         </KanbanProvider>
     );
-};
+}
 
 // Load data for the homepage
-Home.getInitialProps = async (ctx) => {
-    return {
-        statuses: await StatusAPI.findAll(),
-        tasks: await TaskAPI.findAll(),
+export async function getServerSideProps(
+    ctx: GetServerSidePropsContext
+): Promise<{
+    props: {
+        statuses: Status[];
+        tasks: Task[];
     };
-};
-
-export default Home;
+}> {
+    return {
+        props: {
+            statuses: await StatusAPI.findAll(),
+            tasks: await TaskAPI.findAll(),
+        },
+    };
+}
