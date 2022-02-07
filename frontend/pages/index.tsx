@@ -1,4 +1,4 @@
-import type { GetServerSidePropsContext, NextPage } from "next";
+import type { GetServerSidePropsContext } from "next";
 
 // Custom imports
 import StatusAPI from "../api/status";
@@ -13,9 +13,9 @@ interface Props {
     tasks: ITask[];
 }
 
-export default function IndexPage(props: Props) {
+export default function IndexPage({ statuses, tasks }: Props) {
     return (
-        <KanbanProvider tasks={props.tasks} statuses={props.statuses}>
+        <KanbanProvider tasks={tasks} statuses={statuses}>
             <Kanban />
         </KanbanProvider>
     );
