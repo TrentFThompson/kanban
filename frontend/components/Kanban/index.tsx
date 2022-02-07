@@ -1,5 +1,5 @@
 import { useKanban } from "../../context/kanban";
-import { Status, Task } from "../../interfaces/entities";
+import { IStatus, ITask } from "../../interfaces/entities";
 import AddStatus from "./AddStatus";
 import AddTask from "./AddTask";
 import StatusColumn from "./StatusColumn";
@@ -11,13 +11,14 @@ export default function Kanban() {
         <div>
             <div>
                 {/* Map the statuses to create the columns */}
-                {statuses.map((status: Status) => {
+                {statuses.map((status: IStatus) => {
                     return (
                         <div key={status.id}>
                             <StatusColumn
                                 status={status}
                                 tasks={tasks.filter(
-                                    (task: Task) => task.status_id === status.id
+                                    (task: ITask) =>
+                                        task.status_id === status.id
                                 )}
                             />
                         </div>

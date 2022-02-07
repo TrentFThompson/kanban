@@ -2,11 +2,11 @@ import React, { useState } from "react";
 import Modal from "react-modal";
 
 import { useKanban } from "../../context/kanban";
-import { Task } from "../../interfaces/entities";
+import { ITask } from "../../interfaces/entities";
 import buildHandleChange from "../../utils/handleChange";
 
 // Constants
-const INITIAL_TASK: Task = {
+const INITIAL_TASK: ITask = {
     title: "",
     description: "",
     status_id: 0,
@@ -16,7 +16,7 @@ export default function AddTask() {
     const { statuses, TaskManager } = useKanban();
     const [modalIsOpen, setIsOpen] = useState(false);
     const [task, setTask] = useState(INITIAL_TASK);
-    const handleChange = buildHandleChange<Task>(setTask);
+    const handleChange = buildHandleChange<ITask>(setTask);
 
     async function onClick() {
         await TaskManager?.add({

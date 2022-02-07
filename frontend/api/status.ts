@@ -1,4 +1,4 @@
 import API from "./";
-import { Status } from "../interfaces/entities";
+import { IStatus } from "../interfaces/entities";
 
-export default new API<Status>({ path: "statuses" });
+export default new API<IStatus>({ path: "statuses" });

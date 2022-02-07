@@ -1,11 +1,17 @@
-export interface Task {
+export interface ITask {
     id?: number;
     title: string;
     description: string;
     status_id: number;
 }
 
-export interface Status {
+export interface IStatus {
     id?: number;
     title: string;
+}
+
+export interface IUser {
+    id?: number;
+    email: string;
+    name: string;
 }

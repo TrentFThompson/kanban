@@ -1,4 +1,4 @@
 import API from "./";
-import { Task } from "../interfaces/entities";
+import { ITask } from "../interfaces/entities";
 
-export default new API<Task>({ path: "tasks" });
+export default new API<ITask>({ path: "tasks" });

@@ -1,8 +1,8 @@
-import { Task } from "../../interfaces/entities";
+import { ITask } from "../../interfaces/entities";
 import { useKanban } from "../../context/kanban";
 
 interface Props {
-    task: Task;
+    task: ITask;
 }
 
 export default function TaskView({ task }: Props) {

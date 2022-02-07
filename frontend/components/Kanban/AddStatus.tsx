@@ -3,10 +3,10 @@ import React, { useState } from "react";
 
 import { useKanban } from "../../context/kanban";
 import buildHandleChange from "../../utils/handleChange";
-import { Status } from "../../interfaces/entities";
+import { IStatus } from "../../interfaces/entities";
 
 // Constants
-const INITIAL_STATUS: Status = {
+const INITIAL_STATUS: IStatus = {
     title: "",
 };
 
@@ -14,9 +14,9 @@ export default function AddStatus() {
     const { StatusManager } = useKanban();
     const [modalIsOpen, setIsOpen] = useState(false);
     const [status, setStatus] = useState(INITIAL_STATUS);
-    const handleChange = buildHandleChange<Status>(setStatus);
+    const handleChange = buildHandleChange<IStatus>(setStatus);
 
-    async function onClick(status: Status) {
+    async function onClick(status: IStatus) {
         await StatusManager?.add(status);
         closeModal();
     }
