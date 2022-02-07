@@ -23,6 +23,17 @@ $ docker-compose up
 ```
 
 <p>"docker-compose up" will build the appropriate images for the API and database, and run them in a container. The container will expose the API to http://localhost:3000 on the host machine.</p>
+
+<p>*Note*: If this is your first time running the API and database after building the images you will also have to run:</p>
+
+```
+$ docker-compose run api rails db:create 
+$ docker-compose run api rails db:migrate
+```
+
+<p>This will configure the database for the Rails app.</p>
+
+<p></p>
 <h3>Frontend</h3>
 <p>To run the front-end Next.js application, enter the following commands into the console:</p>
 
