@@ -53,7 +53,17 @@ Rails.application.configure do
   # Highlight code that triggered database queries in logs.
   config.active_record.verbose_query_logs = true
 
+  config.session_store :cookie_store, key: '_interslice_session'
+  config.middleware.use ActionDispatch::Cookies
+  config.middleware.use config.session_store, config.session_options
 
+  # Rails.application.config.session_store :cookie_store, {
+  #   :key => '_your_app_name',
+  #   :domain => :all,
+  #   :same_site => :none,
+  #   :secure => :true,
+  #   :tld_length => 2
+  # }
   # Raises error for missing translations.
   # config.i18n.raise_on_missing_translations = true
 
