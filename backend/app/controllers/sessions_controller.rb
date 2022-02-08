@@ -1,9 +1,4 @@
 class SessionsController < ApplicationController
-  # Logs in the given user.
-  def log_in(user)
-    session[:user_id] = user.id
-  end
-
   def create
 		# Search for the user by email
 		@user = User.find_by(email: params[:email].downcase)
@@ -12,17 +7,15 @@ class SessionsController < ApplicationController
 		if @user && @user.authenticate(params[:password])
 			# Create a session for the user
 			log_in @user
-
 			render json: @user, status: :created
 		else
       render json: {}, status: :unauthorized
 		end
   end
 
-  def logged_in?
-    @user = User.find(session[:user_id]) if (session[:user_id])
-    if @user
-      render json: @user, status: :ok
+  def logged_in
+    if logged_in?
+      render json: current_user, status: :ok
     else
       render json: {}, status: :unauthorized
 		end

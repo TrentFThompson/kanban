@@ -19,7 +19,7 @@ Rails.application.routes.draw do
 
   # Auth
   post "/login", to: "sessions#create"
-  get "/logged_in", to: "sessions#logged_in?"
+  get "/logged_in", to: "sessions#logged_in"
   delete "/logout", to: "sessions#destroy"
 
   # Defines the root path route ("/")

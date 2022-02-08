@@ -1,11 +1,10 @@
 class StatusesController < ApplicationController
   before_action :set_status, only: %i[ show update destroy ]
+  before_action :authenticated_route
 
   # GET /statuses
   def index
-    @statuses = Status.all
-
-    render json: @statuses
+    render json: current_user.statuses
   end
 
   # GET /statuses/1
@@ -41,11 +40,11 @@ class StatusesController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_status
-      @status = Status.find(params[:id])
+      @status = current_user.statuses.find_by(id: params[:id])
     end
 
     # Only allow a list of trusted parameters through.
     def status_params
-      params.require(:status).permit(:title)
+      params.require(:status).permit(:title).merge(user: current_user)
     end
 end
