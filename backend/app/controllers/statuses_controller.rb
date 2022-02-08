@@ -33,7 +33,8 @@ class StatusesController < ApplicationController
 
   # DELETE /statuses/1
   def destroy
-    Task.where(status_id: @status.id).destroy_all
+    # Destroy all tasks with that status
+    current_user.tasks.where(status_id: @status.id).destroy_all
     @status.destroy  
   end
 

@@ -6,7 +6,7 @@ Rails.application.routes.draw do
   # Tasks
   post "/tasks", to: "tasks#create"
   get "/tasks", to: "tasks#index"
-  patch "/tasks/:id", to: "tasks#update"
+  # patch "/tasks/:id", to: "tasks#update"
   delete "/tasks/:id", to: "tasks#destroy"
 
   # Statuses

@@ -1,10 +1,10 @@
 class TasksController < ApplicationController
   before_action :set_task, only: %i[ show update destroy ]
+  before_action :authenticated_route
 
   # GET /tasks
   def index
-    @tasks = Task.all
-    render json: @tasks
+    render json: current_user.tasks
   end
 
   # GET /tasks/1
@@ -15,7 +15,6 @@ class TasksController < ApplicationController
   # POST /tasks
   def create
     @task = Task.new(task_params)
-
     if @task.save
       render json: @task, status: :created
     else
@@ -23,20 +22,14 @@ class TasksController < ApplicationController
     end
   end
 
-  # def create
-  #   # params.require(:task)
-  #   @task = Task.new(task_params)
-  #   render json: @task
-  # end
-
   # PATCH/PUT /tasks/1
-  def update
-    if @task.update(task_params)
-      render json: @task
-    else
-      render json: @task.errors, status: :unprocessable_entity
-    end
-  end
+  # def update
+  #   if @task.update(task_params)
+  #     render json: @task
+  #   else
+  #     render json: @task.errors, status: :unprocessable_entity
+  #   end
+  # end
 
   # DELETE /tasks/1
   def destroy
@@ -46,11 +39,11 @@ class TasksController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_task
-      @task = Task.find(params[:id])
+      @task = current_user.tasks.find_by(id: params[:id])
     end
 
     # Only allow a list of trusted parameters through.
     def task_params
-      params.require(:task).permit(:title, :description, :status_id)
+      params.require(:task).permit(:title, :description, :status_id).merge(user: current_user)
     end
 end
