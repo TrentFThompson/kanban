@@ -1,4 +1,10 @@
-import { createContext, useContext, useState, ReactNode } from "react";
+import {
+    createContext,
+    useContext,
+    useState,
+    ReactNode,
+    useEffect,
+} from "react";
 
 import StatusAPI from "../api/status";
 import TaskAPI from "../api/tasks";
@@ -36,6 +42,12 @@ export function KanbanProvider(props: Props) {
         api: StatusAPI,
         setState: setStatuses,
     });
+
+    // Fetch initial tasks, statuses
+    useEffect(() => {
+        TaskAPI.findAll().then(setTasks);
+        StatusAPI.findAll().then(setStatuses);
+    }, []);
 
     return (
         <KanbanContext.Provider

@@ -1,6 +1,4 @@
-import axios from "axios";
-
-import { apiUrl } from "../utils/url";
+import backend from "../lib/backend";
 
 export interface IAPI<T> {
     path: string;
@@ -13,18 +11,18 @@ export default class API<T> implements IAPI<T> {
     path: string = "";
 
     constructor({ path }: { path: string }) {
-        this.path = `${apiUrl}/${path}`;
+        this.path = `/${path}`;
     }
 
     async findAll(): Promise<T[]> {
-        return (await axios.get(this.path)).data;
+        return (await backend.get(this.path)).data;
     }
 
     async add(t: T): Promise<T> {
-        return (await axios.post(this.path, t)).data;
+        return (await backend.post(this.path, t)).data;
     }
 
     async remove(id: number): Promise<void> {
-        await axios.delete(`${this.path}/${id}`);
+        await backend.delete(`${this.path}/${id}`);
     }
 }

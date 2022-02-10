@@ -6,6 +6,7 @@ import TaskAPI from "../api/tasks";
 import { IStatus, ITask } from "../interfaces/entities";
 import { KanbanProvider } from "../context/kanban";
 import Kanban from "../components/Kanban";
+import loggedIn from "../utils/loggedIn";
 
 // Define the props for the page
 interface Props {
@@ -22,18 +23,20 @@ export default function IndexPage({ statuses, tasks }: Props) {
 }
 
 // Load data for the homepage
-export async function getServerSideProps(
-    ctx: GetServerSidePropsContext
-): Promise<{
-    props: {
-        statuses: IStatus[];
-        tasks: ITask[];
-    };
-}> {
-    return {
-        props: {
-            statuses: await StatusAPI.findAll(),
-            tasks: await TaskAPI.findAll(),
-        },
-    };
+export async function getServerSideProps(ctx: GetServerSidePropsContext) {
+    if (await loggedIn(ctx.req.headers.cookie)) {
+        return {
+            props: {
+                statuses: [], //await StatusAPI.findAll(),
+                tasks: [], //await TaskAPI.findAll(),
+            },
+        };
+    } else {
+        return {
+            redirect: {
+                destination: "/login",
+            },
+            props: {},
+        };
+    }
 }
