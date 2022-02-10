@@ -10,11 +10,11 @@ interface ICredentials {
 
 export const AuthContext = createContext<{
     login: (credentials: ICredentials) => Promise<void>;
-    loggedIn: () => Promise<void>;
+    loggedIn: () => Promise<boolean>;
     logout: () => Promise<void>;
 }>({
     login: async (credentials: ICredentials) => {},
-    loggedIn: async () => {},
+    loggedIn: async () => true,
     logout: async () => {},
 });
 
@@ -41,9 +41,11 @@ export function AuthProvider(props: IProps) {
     async function loggedIn() {
         try {
             await backend.get("logged_in");
+            return true;
         } catch {
             console.log("User not logged in");
             router.push("/login");
+            return false;
         }
     }
 
