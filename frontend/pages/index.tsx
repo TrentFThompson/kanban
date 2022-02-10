@@ -9,12 +9,12 @@ import Kanban from "../components/Kanban";
 import loggedIn from "../utils/loggedIn";
 
 // Define the props for the page
-interface Props {
+interface IProps {
     statuses: IStatus[];
     tasks: ITask[];
 }
 
-export default function IndexPage({ statuses, tasks }: Props) {
+export default function IndexPage({ statuses, tasks }: IProps) {
     return (
         <KanbanProvider tasks={tasks} statuses={statuses}>
             <Kanban />

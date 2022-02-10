@@ -3,11 +3,11 @@ import { useState } from "react";
 
 import { useKanban } from "../../context/kanban";
 
-interface Props {
+interface IProps {
     id: number;
 }
 
-export default function RemoveStatus({ id }: Props) {
+export default function RemoveStatus({ id }: IProps) {
     const { StatusManager } = useKanban();
     const [modalIsOpen, setIsOpen] = useState(false);
 

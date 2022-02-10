@@ -1,11 +1,11 @@
 import { ITask } from "../../interfaces/entities";
 import { useKanban } from "../../context/kanban";
 
-interface Props {
+interface IProps {
     task: ITask;
 }
 
-export default function TaskView({ task }: Props) {
+export default function TaskView({ task }: IProps) {
     const { TaskManager } = useKanban();
 
     return (

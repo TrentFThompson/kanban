@@ -1,20 +1,12 @@
-import { useRouter } from "next/router";
-
 import { useKanban } from "../../context/kanban";
 import { IStatus, ITask } from "../../interfaces/entities";
 import AddStatus from "./AddStatus";
 import AddTask from "./AddTask";
 import StatusColumn from "./StatusColumn";
-import backend from "../../lib/backend";
+import Logout from "../Logout";
 
 export default function Kanban() {
     const { statuses, tasks } = useKanban();
-    const router = useRouter();
-
-    async function handleLogout() {
-        await backend.delete("/logout");
-        router.push("/login");
-    }
 
     return (
         <div>
@@ -38,7 +30,7 @@ export default function Kanban() {
             {statuses.length > 0 && <AddTask />}
             <br />
             <br />
-            <button onClick={handleLogout}>Logout</button>
+            <Logout />
         </div>
     );
 }

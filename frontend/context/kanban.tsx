@@ -10,12 +10,7 @@ import StatusAPI from "../api/status";
 import TaskAPI from "../api/tasks";
 import { IStatus, ITask } from "../interfaces/entities";
 import ContextArrayManager from "./context-manager";
-
-interface Props {
-    tasks: ITask[];
-    statuses: IStatus[];
-    children: ReactNode;
-}
+import { useAuth } from "./auth";
 
 export const KanbanContext = createContext<{
     statuses: IStatus[];
@@ -31,16 +26,26 @@ export function useKanban() {
     return useContext(KanbanContext);
 }
 
-export function KanbanProvider(props: Props) {
+interface IProps {
+    tasks: ITask[];
+    statuses: IStatus[];
+    children: ReactNode;
+}
+
+export function KanbanProvider(props: IProps) {
+    const { loggedIn } = useAuth();
     const [tasks, setTasks] = useState(props.tasks);
     const [statuses, setStatuses] = useState(props.statuses);
+
     const TaskManager = new ContextArrayManager<ITask>({
         api: TaskAPI,
         setState: setTasks,
+        loggedIn,
     });
     const StatusManager = new ContextArrayManager<IStatus>({
         api: StatusAPI,
         setState: setStatuses,
+        loggedIn,
     });
 
     // Fetch initial tasks, statuses

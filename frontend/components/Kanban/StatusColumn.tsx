@@ -2,12 +2,12 @@ import { ITask, IStatus } from "../../interfaces/entities";
 import RemoveStatus from "./RemoveStatus";
 import TaskView from "./TaskView";
 
-interface Props {
+interface IProps {
     status: IStatus;
     tasks: ITask[];
 }
 
-export default function StatusColumn({ status, tasks }: Props) {
+export default function StatusColumn({ status, tasks }: IProps) {
     return (
         <div>
             <h1>{status.title}</h1>

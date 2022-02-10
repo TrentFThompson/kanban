@@ -1,26 +1,20 @@
 import { useState } from "react";
-import { useRouter } from "next/router";
 
 import buildHandleChange from "../../utils/handleChange";
-import backend from "../../lib/backend";
+import { useAuth } from "../../context/auth";
 
 const DEFAULT_CREDENTIALS = {
     email: "",
     password: "",
 };
 
-export default function login() {
+export default function Login() {
     const [credentials, setCredentials] = useState(DEFAULT_CREDENTIALS);
     const handleChange = buildHandleChange(setCredentials);
-    const router = useRouter();
+    const { login } = useAuth();
 
     async function handleSubmit() {
-        try {
-            await backend.post("/login", credentials);
-            router.push("/");
-        } catch {
-            console.log("Error logging in");
-        }
+        await login(credentials);
     }
 
     return (
