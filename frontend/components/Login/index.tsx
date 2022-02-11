@@ -1,4 +1,15 @@
 import { useState } from "react";
+import {
+    Heading,
+    Stack,
+    Input,
+    Button,
+    Box,
+    Center,
+    FormLabel,
+    Link as ChakraLink,
+} from "@chakra-ui/react";
+import Link from "next/Link";
 
 import buildHandleChange from "../../utils/handleChange";
 import { useAuth } from "../../context/auth";
@@ -19,24 +30,45 @@ export default function Login() {
 
     return (
         <div>
-            <h1>Login</h1>
-            Email:
-            <input
-                type="text"
-                name="email"
-                value={credentials.email}
-                onChange={handleChange}
-            />
-            <br />
-            Password:
-            <input
-                type="password"
-                name="password"
-                value={credentials.password}
-                onChange={handleChange}
-            />
-            <br />
-            <button onClick={handleSubmit}>Login</button>
+            <Center transform={"translateY(50%)"}>
+                <Box
+                    boxShadow="md"
+                    p="10"
+                    w="container.md"
+                    borderRadius="md"
+                    m={5}
+                >
+                    <Stack spacing={5}>
+                        <Heading>Login</Heading>
+                        <FormLabel>Email</FormLabel>
+                        <Input
+                            type="text"
+                            name="email"
+                            value={credentials.email}
+                            onChange={handleChange}
+                            placeholder="Email"
+                        />
+                        <FormLabel>Password</FormLabel>
+                        <Input
+                            type="password"
+                            name="password"
+                            value={credentials.password}
+                            onChange={handleChange}
+                            placeholder="Password"
+                        />
+                        <Button onClick={handleSubmit} colorScheme="cyan">
+                            Login
+                        </Button>
+                        <Center>
+                            <Link href="/signup">
+                                <ChakraLink>
+                                    Don't have an account? Sign up now.
+                                </ChakraLink>
+                            </Link>
+                        </Center>
+                    </Stack>
+                </Box>
+            </Center>
         </div>
     );
 }

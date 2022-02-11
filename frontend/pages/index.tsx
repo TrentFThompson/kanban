@@ -1,4 +1,5 @@
 import type { GetServerSidePropsContext } from "next";
+import Head from "next/head";
 
 // Custom imports
 import StatusAPI from "../api/status";
@@ -17,6 +18,9 @@ interface IProps {
 export default function IndexPage({ statuses, tasks }: IProps) {
     return (
         <KanbanProvider tasks={tasks} statuses={statuses}>
+            <Head>
+                <title>Simple Kanban | Dashboard</title>
+            </Head>
             <Kanban />
         </KanbanProvider>
     );
