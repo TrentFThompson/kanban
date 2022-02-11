@@ -30,7 +30,7 @@ export default function Login() {
 
     return (
         <div>
-            <Center transform={"translateY(50%)"}>
+            <Center mt={"100px"}>
                 <Box
                     boxShadow="md"
                     p="10"
